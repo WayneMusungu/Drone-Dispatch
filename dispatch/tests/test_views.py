@@ -60,13 +60,11 @@ class RegisterDroneViewTest(APITestCase):
         self.assertEqual(response.data['serial_number'][0], 'drone with this serial number already exists.')
 
     def test_register_drone_invalid_weight(self):
-        # Register a drone with valid_payload first
         response = self.client.post(self.url, self.invalid_weight_limit, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['weight_limit'][0], 'Ensure this value is less than or equal to 500.')
         
     def test_register_drone_invalid_model(self):
-        # Register a drone with valid_payload first
         response = self.client.post(self.url, self.invalid_model_choice, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['model'][0], '"LIGHT" is not a valid choice.')
@@ -125,10 +123,7 @@ class LoadMedicationViewAPITest(APITestCase):
         
 class CheckLoadedMedicationsViewTest(APITestCase):
     def setUp(self):
-        # Create a test user (if required)
-        # self.user = User.objects.create_user(username='testuser', password='testpassword')
-
-        # Create a test drone
+        
         self.drone = Drone.objects.create(
             serial_number='XTY-899',
             model='LIGHTWEIGHT',
@@ -137,7 +132,7 @@ class CheckLoadedMedicationsViewTest(APITestCase):
             state='IDLE'
         )
 
-        # Create medications associated with the drone
+        """ Create medications associated with the drone"""
         self.medication1 = Medication.objects.create(
             name='Med1',
             weight=10,
@@ -185,5 +180,41 @@ class CheckLoadedMedicationsViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['status'], False)
         self.assertEqual(response.data['message'], 'Drone does not exist')
+        
+              
+class CheckDroneBatteryLevelViewTest(APITestCase):
+    def setUp(self):
+        self.drone = Drone.objects.create(
+            serial_number='XTY-899',
+            model='LIGHTWEIGHT',
+            weight_limit=200,
+            battery_capacity=75.0,
+            state='IDLE'
+        )
+        self.url = reverse('check_drone_battery', kwargs={'id': self.drone.id})
+        
+    def tearDown(self):
+        Drone.objects.all().delete()
+
+    def test_check_drone_battery_level_success(self):
+        """Test case where drone exists"""
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['status'], 'Success')
+        self.assertEqual(response.data['drone_id'], self.drone.id)
+        self.assertEqual(response.data['drone_serial_number'], self.drone.serial_number)
+        self.assertEqual(response.data['battery_level'], self.drone.battery_capacity)
+
+    def test_check_drone_battery_level_not_found(self):
+        """Test case where drone does not exist"""
+        invalid_url = reverse('check_drone_battery', kwargs={'id': self.drone.id + 1})
+
+        response = self.client.get(invalid_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data['status'], 'Drone not found')
+
+   
 
    

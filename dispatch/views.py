@@ -110,3 +110,21 @@ class CheckLoadedMedicationsView(APIView):
                 'message': 'This drone has no medications associated with it',
                 'medications': medication_serializer.data
             }, status=status.HTTP_200_OK)
+            
+            
+class CheckDroneBatteryLevelView(APIView):
+
+    def get(self, request, id):
+        try:
+            drone = Drone.objects.get(id=id)
+        except Drone.DoesNotExist:
+            return Response({
+                'status': 'Drone not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({
+            'status': 'Success',
+            'drone_id': drone.id,
+            'drone_serial_number':drone.serial_number,
+            'battery_level': drone.battery_capacity
+        }, status=status.HTTP_200_OK)
