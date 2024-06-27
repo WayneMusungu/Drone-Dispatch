@@ -27,10 +27,10 @@ class RegisterDroneViewTest(APITestCase):
             'battery_capacity': 75.0,
             'state': 'IDLE'
         }
-        self.invalid_weight_limit = {
+        self.invalid_model_choice = {
             'serial_number': 'PFF-990',  
-            'model': 'MIDDLEWEIGHT',
-            'weight_limit': 600, # Invalid weight limit
+            'model': 'LIGHT', # Invalid model choice
+            'weight_limit': 400, 
             'battery_capacity': 75.0,
             'state': 'IDLE'
         }
@@ -58,13 +58,18 @@ class RegisterDroneViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         # Asses the first error message in the list
         self.assertEqual(response.data['serial_number'][0], 'drone with this serial number already exists.')
-        
 
     def test_register_drone_invalid_weight(self):
         # Register a drone with valid_payload first
         response = self.client.post(self.url, self.invalid_weight_limit, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['weight_limit'][0], 'Ensure this value is less than or equal to 500.')
+        
+    def test_register_drone_invalid_model(self):
+        # Register a drone with valid_payload first
+        response = self.client.post(self.url, self.invalid_model_choice, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['model'][0], '"LIGHT" is not a valid choice.')
 
 
 class LoadMedicationViewAPITest(APITestCase):
