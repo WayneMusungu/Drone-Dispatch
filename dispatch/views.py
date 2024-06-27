@@ -24,8 +24,8 @@ class LoadMedicationView(generics.GenericAPIView):
             return Response({'status': 'Drone not found'}, status=status.HTTP_404_NOT_FOUND)
 
         # Check drone state and battery level
-        if drone.state != 'IDLE':
-            return Response({'status': 'Drone must be in IDLE state to start loading medications'}, status=status.HTTP_400_BAD_REQUEST)
+        if drone.state not in ['IDLE', 'LOADING']:
+            return Response({'status': 'Drone must be in IDLE or LOADING state to start loading medications'}, status=status.HTTP_400_BAD_REQUEST)
         if drone.battery_capacity < 25:
             return Response({'status': 'Battery level is below 25%'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,7 +60,11 @@ class LoadMedicationView(generics.GenericAPIView):
             else:
                 drone.state = 'LOADING'
             drone.save()
+            
+        remaining_weight = drone.weight_limit - (total_weight + current_weight)
 
-        return Response({'status': 'Medications loaded successfully', 'medications': medications_created}, status=status.HTTP_200_OK)
-    
-    
+        return Response({
+            'status': 'Medications loaded successfully',
+            'medications': medications_created,
+            'remaining_weight': remaining_weight
+        }, status=status.HTTP_200_OK)
