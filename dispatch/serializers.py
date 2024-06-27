@@ -13,3 +13,9 @@ class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medication
         fields = '__all__'
+        
+        
+class DroneLodedMedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Drone
+        fields = ['serial_number']

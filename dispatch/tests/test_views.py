@@ -84,7 +84,7 @@ class LoadMedicationViewAPITest(APITestCase):
         self.drone.delete()
         
     def test_load_medication_sucess(self):
-        url = reverse('load_medication', kwargs={'pk': self.drone.pk})
+        url = reverse('load_medication', kwargs={'id': self.drone.id})
         payload = {
             'medications': [
                 {'name': 'Medicine A', 'weight': 200, 'code':'TRM500'},
@@ -98,7 +98,7 @@ class LoadMedicationViewAPITest(APITestCase):
         self.assertEqual(len(response.data['medications']), 2)  
         
     def test_load_medications_drone_not_found(self):
-        url = reverse('load_medication', kwargs={'pk': 999})
+        url = reverse('load_medication', kwargs={'id': 999})
         payload = {
             'medications': [
                 {'name': 'Medicine A', 'weight': 20, 'code':'TRM500'},
@@ -111,7 +111,7 @@ class LoadMedicationViewAPITest(APITestCase):
     def test_load_medications_invalid_state(self):
         self.drone.state = 'LOADED'
         self.drone.save()
-        url = reverse('load_medication', kwargs={'pk': self.drone.pk})
+        url = reverse('load_medication', kwargs={'id': self.drone.id})
         payload = {
             'medications': [
                 {'name': 'Medicine A', 'weight': 20, 'code':'TRM500'},
@@ -120,3 +120,70 @@ class LoadMedicationViewAPITest(APITestCase):
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['status'], 'Drone must be in IDLE or LOADING state to start loading medications')
+        
+        
+        
+class CheckLoadedMedicationsViewTest(APITestCase):
+    def setUp(self):
+        # Create a test user (if required)
+        # self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Create a test drone
+        self.drone = Drone.objects.create(
+            serial_number='XTY-899',
+            model='LIGHTWEIGHT',
+            weight_limit=200,
+            battery_capacity=75.0,
+            state='IDLE'
+        )
+
+        # Create medications associated with the drone
+        self.medication1 = Medication.objects.create(
+            name='Med1',
+            weight=10,
+            code='TTY-908',
+            drone=self.drone
+        )
+        self.medication2 = Medication.objects.create(
+            name='Med2',
+            weight=5,
+            code='XGF-001',
+            drone=self.drone
+        )
+
+        self.url = reverse('loaded_medications', kwargs={'id': self.drone.id})
+        
+    def tearDown(self):
+        Drone.objects.all().delete()
+        Medication.objects.all().delete()
+
+    def test_loaded_medications_exists(self):
+        """Test case where medications exist for the drone"""
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['status'], True)
+        self.assertEqual(len(response.data['medications']), 2)
+
+    def test_loaded_medications_not_exist(self):
+        """Test case where no medications exist for the drone"""
+        Medication.objects.filter(drone=self.drone).delete()
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['status'], True)
+        self.assertEqual(response.data['message'], 'This drone has no medications associated with it')
+        self.assertEqual(response.data.get('medications', []), [])
+
+    def test_loaded_medications_drone_not_found(self):
+        """ Test case where drone does not exist"""
+        invalid_url = reverse('loaded_medications', kwargs={'id': self.drone.id + 1})
+
+        response = self.client.get(invalid_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data['status'], False)
+        self.assertEqual(response.data['message'], 'Drone does not exist')
+
+   
