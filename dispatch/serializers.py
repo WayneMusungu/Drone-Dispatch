@@ -24,12 +24,7 @@ class DroneLodedMedicationSerializer(serializers.ModelSerializer):
         
 
 class AvailableDroneSerializer(serializers.ModelSerializer):
-    # remaining_weight = serializers.SerializerMethodField()
 
     class Meta:
         model = Drone
         fields = ['id', 'serial_number', 'model', 'weight_limit', 'battery_capacity', 'state']
-
-    # def get_remaining_weight(self, obj):
-    #     current_weight = obj.medications.aggregate(total_weight=Sum('weight'))['total_weight'] or 0
-    #     return obj.weight_limit - current_weight
