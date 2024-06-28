@@ -61,7 +61,7 @@ ROOT_URLCONF = 'drone_dispatch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,13 +137,19 @@ CELERY_RESULT_BACKEND = 'django-db'  # Store results in Django database
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
-
 CELERY_BEAT_SCHEDULE = {
-    'check-drone-battery': {
-        'task': 'dispatch.tasks.check_drone_battery',
-        'schedule': crontab(minute='*/5'),  # Every 5 minutes
+    'delete-expired-audit-logs': {
+        'task': 'dispatch.tasks.delete_expired_audit_logs',
+        'schedule': crontab(minute='*/4'),  # Run every 4 minutes
         'options': {
-            'timezone': 'Africa/Nairobi',  # Specify the timezone for the task schedule
+            'timezone': 'Africa/Nairobi',
+        }
+    },
+    'perform-check-drone-battery': {
+        'task': 'dispatch.tasks.perform_check_drone_battery',
+        'schedule': crontab(minute='*/5'),  # Run every 5 minutes
+        'options': {
+            'timezone': 'Africa/Nairobi',
         }
     },
 }

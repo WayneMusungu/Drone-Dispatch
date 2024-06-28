@@ -1,0 +1,16 @@
+<!-- audit_log.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audit Log</title>
+</head>
+<body>
+    <h1>Audit Log</h1>
+    <ul>
+        {% for log in audit_logs %}
+            <li>{{ log }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

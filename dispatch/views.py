@@ -1,10 +1,11 @@
 from django.db.models import Sum
+from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db import transaction
-from dispatch.models import Drone, Medication
-from dispatch.serializers import AvailableDroneSerializer, DroneLodedMedicationSerializer, DroneSerializer, MedicationSerializer
+from dispatch.models import Drone, DroneBatteryAudit, Medication
+from dispatch.serializers import AvailableDroneSerializer, DroneBatteryAuditSerializer, DroneLodedMedicationSerializer, DroneSerializer, MedicationSerializer
 
 
 
@@ -141,3 +142,8 @@ class CheckDroneBatteryLevelView(APIView):
             'drone_serial_number':drone.serial_number,
             'battery_level': drone.battery_capacity
         }, status=status.HTTP_200_OK)
+        
+        
+class DroneBatteryAuditListAPIView(generics.ListAPIView):
+    queryset = DroneBatteryAudit.objects.all()
+    serializer_class = DroneBatteryAuditSerializer

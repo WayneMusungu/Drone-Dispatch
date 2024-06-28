@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Drone, Medication
+from .models import Drone, DroneBatteryAudit, Medication
 from django.db.models import Sum
 
 
@@ -28,3 +28,9 @@ class AvailableDroneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drone
         fields = ['id', 'serial_number', 'model', 'weight_limit', 'battery_capacity', 'state']
+        
+        
+class DroneBatteryAuditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DroneBatteryAudit
+        fields = ('drone', 'battery_level', 'timestamp')

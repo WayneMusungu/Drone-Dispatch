@@ -1,3 +1,6 @@
+from datetime import timedelta
+from celery import shared_task
+from django.utils import timezone
 import re
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -32,3 +35,21 @@ class Medication(models.Model):
         
     def __str__(self):
         return self.name
+    
+
+class DroneBatteryAudit(models.Model):
+    drone = models.ForeignKey(Drone, on_delete=models.CASCADE)
+    battery_level = models.FloatField()
+    task_name = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    expiry_duration_minutes = models.IntegerField(default=5)  # Set expiry duration to 5 minutes
+
+    @property
+    def expiry_timestamp(self):
+        return self.timestamp + timezone.timedelta(minutes=self.expiry_duration_minutes)
+
+    def __str__(self):
+        return f"{self.drone.serial_number} - Battery Level: {self.battery_level}% - Task: {self.task_name}"
+
+    class Meta:
+        verbose_name_plural = "Drone Battery Audits"
