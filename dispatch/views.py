@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db import transaction
 from dispatch.models import Drone, Medication
-from dispatch.serializers import DroneLodedMedicationSerializer, DroneSerializer, MedicationSerializer
+from dispatch.serializers import AvailableDroneSerializer, DroneLodedMedicationSerializer, DroneSerializer, MedicationSerializer
 
 
 
@@ -112,6 +112,19 @@ class CheckLoadedMedicationsView(APIView):
             }, status=status.HTTP_200_OK)
             
             
+class AvailableDronesForLoadingView(APIView):
+    serializer_class = AvailableDroneSerializer
+
+    def get(self, request):
+        available_drones = Drone.objects.filter(state='IDLE', battery_capacity__gte=25)  # Use greater or equal to include drones with 25% battery or more
+        serializer = self.serializer_class(available_drones, many=True)
+        
+        return Response({
+            'status': 'Success',
+            'available_drones': serializer.data
+        }, status=status.HTTP_200_OK)           
+            
+            
 class CheckDroneBatteryLevelView(APIView):
 
     def get(self, request, id):
@@ -124,7 +137,7 @@ class CheckDroneBatteryLevelView(APIView):
 
         return Response({
             'status': 'Success',
-            'drone_id': drone.id,
+            'id': drone.id,
             'drone_serial_number':drone.serial_number,
             'battery_level': drone.battery_capacity
         }, status=status.HTTP_200_OK)

@@ -120,7 +120,6 @@ class LoadMedicationViewAPITest(APITestCase):
         self.assertEqual(response.data['status'], 'Drone must be in IDLE or LOADING state to start loading medications')
         
         
-        
 class CheckLoadedMedicationsViewTest(APITestCase):
     def setUp(self):
         
@@ -182,6 +181,52 @@ class CheckLoadedMedicationsViewTest(APITestCase):
         self.assertEqual(response.data['message'], 'Drone does not exist')
         
               
+class AvailableDronesForLoadingViewTest(APITestCase):
+    def setUp(self):
+        self.drone1 = Drone.objects.create(
+            serial_number='UYT-095',
+            model='HEAVYWEIGHT',
+            weight_limit=400,
+            battery_capacity=80.0,
+            state='IDLE',
+        )
+        self.drone2 = Drone.objects.create(
+            serial_number='UYT-096',
+            model='MIDDLEWEIGHT',
+            weight_limit=400,
+            battery_capacity=20.0,  # Battery below 25%, should not be included
+            state='IDLE',
+        )
+        self.drone3 =Drone.objects.create(
+            serial_number='TEST-004',
+            model='CRUISERWEIGHT',
+            weight_limit=400,
+            battery_capacity=30.0,
+            state='LOADED'  # State not 'IDLE', should not be included
+        )
+        
+    def tearDown(self):
+        Drone.objects.all().delete()
+        
+    def test_get_available_drones(self):
+        url = reverse('available_drones_for_loading')
+        response = self.client.get(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['available_drones']), 1)
+        
+        """Verify the structure and content of each drone in the response"""
+        for drone_data in response.data['available_drones']:
+            self.assertIn('id', drone_data)
+            self.assertIn('serial_number', drone_data)
+            self.assertIn('model', drone_data)
+            self.assertIn('weight_limit', drone_data)
+            self.assertIn('battery_capacity', drone_data)
+            self.assertIn('state', drone_data)
+            self.assertGreaterEqual(drone_data['battery_capacity'], 25)
+            self.assertEqual(drone_data['state'], 'IDLE')
+             
+              
 class CheckDroneBatteryLevelViewTest(APITestCase):
     def setUp(self):
         self.drone = Drone.objects.create(
@@ -202,7 +247,7 @@ class CheckDroneBatteryLevelViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['status'], 'Success')
-        self.assertEqual(response.data['drone_id'], self.drone.id)
+        self.assertEqual(response.data['id'], self.drone.id)
         self.assertEqual(response.data['drone_serial_number'], self.drone.serial_number)
         self.assertEqual(response.data['battery_level'], self.drone.battery_capacity)
 
@@ -214,7 +259,3 @@ class CheckDroneBatteryLevelViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['status'], 'Drone not found')
-
-   
-
-   
