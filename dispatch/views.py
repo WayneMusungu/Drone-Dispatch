@@ -30,12 +30,12 @@ class LoadMedicationView(APIView):
         if drone.battery_capacity < 25:
             return Response({'status': 'Battery level is below 25%'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Validate payload for medications
-        medications_data = request.data.get('medications', [])
-        if not medications_data:
-            return Response({'status': 'No medications specified'}, status=status.HTTP_400_BAD_REQUEST)
+        # Validate payload for medication
+        medication_data = request.data
+        if not medication_data:
+            return Response({'status': 'No medication specified'}, status=status.HTTP_400_BAD_REQUEST)
 
-        total_weight = sum(med_data.get('weight', 0) for med_data in medications_data)
+        total_weight = int(medication_data.get('weight', 0))
         current_weight = Medication.objects.filter(drone=drone).aggregate(total_weight=Sum('weight'))['total_weight'] or 0
 
         if total_weight + current_weight > drone.weight_limit:
@@ -44,38 +44,34 @@ class LoadMedicationView(APIView):
         # Use transaction.atomic to ensure atomicity
         try:
             with transaction.atomic():
-                medications_created = []
-                for med_data in medications_data:
-                    med_data['drone'] = id
-                    serializer = self.serializer_class(data=med_data)
-                    if serializer.is_valid():
-                        serializer.save()
-                        medications_created.append(serializer.data)
+                medication_data['drone'] = id
+                serializer = self.serializer_class(data=medication_data)
+                if serializer.is_valid():
+                    medication = serializer.save()
+
+                    # Update drone state based on total weight loaded
+                    if total_weight + current_weight == drone.weight_limit:
+                        drone.state = 'LOADED'
                     else:
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                        drone.state = 'LOADING'
+                    drone.save()
 
-                # Update drone state based on total weight loaded
-                if total_weight + current_weight == drone.weight_limit:
-                    drone.state = 'LOADED'
+                    remaining_weight = drone.weight_limit - (total_weight + current_weight)
+
+                    return Response({
+                        'status': 'Medication loaded successfully',
+                        'medication': serializer.data,
+                        'remaining_weight': remaining_weight
+                    }, status=status.HTTP_200_OK)
                 else:
-                    drone.state = 'LOADING'
-                drone.save()
-
-            remaining_weight = drone.weight_limit - (total_weight + current_weight)
-
-            return Response({
-                'status': 'Medications loaded successfully',
-                'medications': medications_created,
-                'remaining_weight': remaining_weight
-            }, status=status.HTTP_200_OK)
-
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({
                 'status': False,
                 'message': 'Unexpected error occurred!',
                 'error': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
-        
+
 
 class CheckLoadedMedicationsView(APIView):
     serializer_class = MedicationSerializer

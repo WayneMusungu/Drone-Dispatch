@@ -1,7 +1,10 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
 from dispatch.models import Drone, Medication
+from PIL import Image
+import io
 
 class RegisterDroneViewTest(APITestCase):
     def setUp(self):
@@ -70,6 +73,7 @@ class RegisterDroneViewTest(APITestCase):
         self.assertEqual(response.data['model'][0], '"LIGHT" is not a valid choice.')
 
 
+
 class LoadMedicationViewAPITest(APITestCase):
     def setUp(self):
         self.drone = Drone.objects.create(
@@ -78,31 +82,40 @@ class LoadMedicationViewAPITest(APITestCase):
             weight_limit=500
         )
         
+        """ Create a valid in-memory image"""
+        image = Image.new('RGB', (100, 100), color='red')
+        image_file = io.BytesIO()
+        image.save(image_file, format='JPEG')
+        image_file.seek(0)
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=image_file.read(), content_type='image/jpeg')
+        
+        self.payload = {
+            'name': 'Medicine A',
+            'weight': 20,
+            'code': 'TRM500',
+            'image': self.image
+        }
+        
     def tearDown(self):
+        Medication.objects.filter(drone=self.drone).delete()
         self.drone.delete()
         
-    def test_load_medication_sucess(self):
+    def test_load_medication_success(self):
         url = reverse('load_medication', kwargs={'id': self.drone.id})
-        payload = {
-            'medications': [
-                {'name': 'Medicine A', 'weight': 200, 'code':'TRM500'},
-                {'name': 'Medicine B', 'weight': 300, 'code':'XXL390'},
-            ]
-        }
-        response = self.client.post(url, payload, format='json')
+        
+        response = self.client.post(url, self.payload, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['status'], 'Medications loaded successfully')
-        self.assertIn('medications', response.data)
-        self.assertEqual(len(response.data['medications']), 2)  
+        self.assertEqual(response.data['status'], 'Medication loaded successfully')
+        self.assertIn('medication', response.data)
+        
+        """ Verify that only one medication was created"""
+        medications = Medication.objects.filter(drone=self.drone)
+        self.assertEqual(medications.count(), 1)
         
     def test_load_medications_drone_not_found(self):
         url = reverse('load_medication', kwargs={'id': 999})
-        payload = {
-            'medications': [
-                {'name': 'Medicine A', 'weight': 20, 'code':'TRM500'},
-            ]
-        }
-        response = self.client.post(url, payload, format='json')
+    
+        response = self.client.post(url, self.payload, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['status'], 'Drone not found')
         
@@ -110,12 +123,8 @@ class LoadMedicationViewAPITest(APITestCase):
         self.drone.state = 'LOADED'
         self.drone.save()
         url = reverse('load_medication', kwargs={'id': self.drone.id})
-        payload = {
-            'medications': [
-                {'name': 'Medicine A', 'weight': 20, 'code':'TRM500'},
-            ]
-        }
-        response = self.client.post(url, payload, format='json')
+     
+        response = self.client.post(url, self.payload, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['status'], 'Drone must be in IDLE or LOADING state to start loading medications')
         

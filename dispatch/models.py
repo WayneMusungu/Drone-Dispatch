@@ -24,7 +24,7 @@ class Medication(models.Model):
     name = models.CharField(max_length=255)
     weight = models.FloatField()
     code = models.CharField(max_length=100, unique=True)
-    image = models.ImageField(upload_to='media/', null=True, blank=True)
+    image = models.ImageField(upload_to='media/', null=False, blank=False)
     drone = models.ForeignKey(Drone, related_name='medications', on_delete=models.CASCADE)
 
     def clean(self):
