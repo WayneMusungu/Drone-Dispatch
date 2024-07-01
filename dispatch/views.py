@@ -1,5 +1,5 @@
 from django.db.models import Sum
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -72,7 +72,6 @@ class LoadMedicationView(APIView):
                 'error': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
 
-
 class CheckLoadedMedicationsView(APIView):
     serializer_class = MedicationSerializer
 
@@ -107,7 +106,7 @@ class CheckLoadedMedicationsView(APIView):
                 'message': 'This drone has no medications associated with it',
                 'medications': medication_serializer.data
             }, status=status.HTTP_200_OK)
-            
+                 
             
 class AvailableDronesForLoadingView(APIView):
     serializer_class = AvailableDroneSerializer
@@ -116,12 +115,18 @@ class AvailableDronesForLoadingView(APIView):
         available_drones = Drone.objects.filter(state='IDLE', battery_capacity__gte=25)  # Use greater or equal to include drones with 25% battery or more
         serializer = self.serializer_class(available_drones, many=True)
         
+        if not available_drones:
+            return Response({
+                'status': 'Success',
+                'message': 'No available drones for loading medications.'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
         return Response({
             'status': 'Success',
             'available_drones': serializer.data
-        }, status=status.HTTP_200_OK)           
+        }, status=status.HTTP_200_OK)
             
-            
+
 class CheckDroneBatteryLevelView(APIView):
 
     def get(self, request, id):

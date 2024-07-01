@@ -1,0 +1,13 @@
+[
+  {
+    "model": "dispatch.medication",
+    "pk": 1,
+    "fields": {
+      "name": "BVE-909",
+      "weight": 200.0,
+      "code": "UYT890",
+      "image": "media/wayne_6yahxqw.jpeg",
+      "drone": 1
+    }
+  }
+]

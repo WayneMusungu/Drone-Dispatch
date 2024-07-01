@@ -132,8 +132,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis as message broker
-CELERY_RESULT_BACKEND = 'django-db'  # Store results in Django database
+CELERY_BROKER_URL = 'redis://redis:6379/0'  
+CELERY_RESULT_BACKEND = 'django-db'  
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
