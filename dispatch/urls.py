@@ -4,7 +4,7 @@ from .views import  AvailableDronesForLoadingView, CheckDroneBatteryLevelView, C
 
 urlpatterns = [
     path('drone/register/', RegisterDroneView.as_view(), name='register_drone'),
-    path('drone/<int:id>/', LoadMedicationView.as_view(), name='load_medication'),
+    path('drone/<int:id>/load/', LoadMedicationView.as_view(), name='load_medication'),
     path('drone/<int:id>/medications/', CheckLoadedMedicationsView.as_view(), name='loaded_medications'),
     path('drone/available-drones/', AvailableDronesForLoadingView.as_view(), name='available_drones_for_loading'),
     path('drone/<int:id>/battery/', CheckDroneBatteryLevelView.as_view(), name='check_drone_battery'),

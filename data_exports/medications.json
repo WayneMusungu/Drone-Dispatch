@@ -1,13 +1,1 @@
-[
-  {
-    "model": "dispatch.medication",
-    "pk": 1,
-    "fields": {
-      "name": "BVE-909",
-      "weight": 200.0,
-      "code": "UYT890",
-      "image": "media/wayne_6yahxqw.jpeg",
-      "drone": 1
-    }
-  }
-]
+[{"model": "dispatch.medication", "pk": 1, "fields": {"name": "Panadol Extra", "weight": 300.0, "code": "UYT890", "image": "photos/panadol.jpeg", "drone": 4}}, {"model": "dispatch.medication", "pk": 2, "fields": {"name": "cetrizine", "weight": 200.0, "code": "TGF097", "image": "photos/citrizin.jpeg", "drone": 2}}, {"model": "dispatch.medication", "pk": 3, "fields": {"name": "Strepsils", "weight": 300.0, "code": "GOT543", "image": "photos/strepsil.jpeg", "drone": 2}}]

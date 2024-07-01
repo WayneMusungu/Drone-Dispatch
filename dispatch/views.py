@@ -39,7 +39,7 @@ class LoadMedicationView(APIView):
         current_weight = Medication.objects.filter(drone=drone).aggregate(total_weight=Sum('weight'))['total_weight'] or 0
 
         if total_weight + current_weight > drone.weight_limit:
-            return Response({'status': 'Total weight exceeds drone weight limit'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'status': f'Total weight exceeds drone weight limit of {drone.weight_limit}'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Use transaction.atomic to ensure atomicity
         try:

@@ -1,46 +1,79 @@
 [
-  {
-    "model": "dispatch.drone",
-    "pk": 1,
-    "fields": {
-      "serial_number": "FXC-084",
-      "model": "HEAVYWEIGHT",
-      "weight_limit": 370,
-      "battery_capacity": 80.0,
-      "state": "LOADING"
+    {
+        "model": "dispatch.drone",
+        "pk": 1,
+        "fields": {
+            "serial_number": "FXC-084",
+            "model": "HEAVYWEIGHT",
+            "weight_limit": 370,
+            "battery_capacity": 80.0,
+            "state": "LOADING"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 2,
+        "fields": {
+            "serial_number": "UID-098",
+            "model": "CRUISERWEIGHT",
+            "weight_limit": 500,
+            "battery_capacity": 80.0,
+            "state": "LOADED"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 3,
+        "fields": {
+            "serial_number": "FST-086",
+            "model": "MIDDLEWEIGHT",
+            "weight_limit": 400,
+            "battery_capacity": 75.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 4,
+        "fields": {
+            "serial_number": "THE-086",
+            "model": "LIGHTWEIGHT",
+            "weight_limit": 359,
+            "battery_capacity": 65.0,
+            "state": "LOADING"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 5,
+        "fields": {
+            "serial_number": "RET-909",
+            "model": "LIGHTWEIGHT",
+            "weight_limit": 500,
+            "battery_capacity": 35.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 6,
+        "fields": {
+            "serial_number": "ERR-404",
+            "model": "CRUISERWEIGHT",
+            "weight_limit": 500,
+            "battery_capacity": 100.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 7,
+        "fields": {
+            "serial_number": "IHJ-200",
+            "model": "LIGHTWEIGHT",
+            "weight_limit": 500,
+            "battery_capacity": 22.0,
+            "state": "IDLE"
+        }
     }
-  },
-  {
-    "model": "dispatch.drone",
-    "pk": 2,
-    "fields": {
-      "serial_number": "UID-098",
-      "model": "CRUISERWEIGHT",
-      "weight_limit": 500,
-      "battery_capacity": 80.0,
-      "state": "IDLE"
-    }
-  },
-  {
-    "model": "dispatch.drone",
-    "pk": 3,
-    "fields": {
-      "serial_number": "FST-086",
-      "model": "MIDDLEWEIGHT",
-      "weight_limit": 400,
-      "battery_capacity": 75.0,
-      "state": "IDLE"
-    }
-  },
-  {
-    "model": "dispatch.drone",
-    "pk": 4,
-    "fields": {
-      "serial_number": "THE-086",
-      "model": "LIGHTWEIGHT",
-      "weight_limit": 359,
-      "battery_capacity": 65.0,
-      "state": "IDLE"
-    }
-  }
 ]
