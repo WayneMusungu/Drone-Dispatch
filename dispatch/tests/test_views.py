@@ -73,7 +73,6 @@ class RegisterDroneViewTest(APITestCase):
         self.assertEqual(response.data['model'][0], '"LIGHT" is not a valid choice.')
 
 
-
 class LoadMedicationViewAPITest(APITestCase):
     def setUp(self):
         self.drone = Drone.objects.create(
