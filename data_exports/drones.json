@@ -51,7 +51,7 @@
             "model": "LIGHTWEIGHT",
             "weight_limit": 500,
             "battery_capacity": 35.0,
-            "state": "IDLE"
+            "state": "LOADED"
         }
     },
     {
@@ -73,6 +73,39 @@
             "model": "LIGHTWEIGHT",
             "weight_limit": 500,
             "battery_capacity": 22.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 8,
+        "fields": {
+            "serial_number": "GTI-094",
+            "model": "MIDDLEWEIGHT",
+            "weight_limit": 250,
+            "battery_capacity": 100.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 9,
+        "fields": {
+            "serial_number": "THE-777",
+            "model": "CRUISERWEIGHT",
+            "weight_limit": 500,
+            "battery_capacity": 87.0,
+            "state": "IDLE"
+        }
+    },
+    {
+        "model": "dispatch.drone",
+        "pk": 10,
+        "fields": {
+            "serial_number": "IDG-767",
+            "model": "MIDDLEWEIGHT",
+            "weight_limit": 400,
+            "battery_capacity": 76.0,
             "state": "IDLE"
         }
     }

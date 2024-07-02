@@ -1,1 +1,222 @@
-[]
+[
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 31,
+        "fields": {
+            "drone": 1,
+            "battery_level": 80.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.340Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 32,
+        "fields": {
+            "drone": 2,
+            "battery_level": 80.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.439Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 33,
+        "fields": {
+            "drone": 3,
+            "battery_level": 75.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.538Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 34,
+        "fields": {
+            "drone": 4,
+            "battery_level": 65.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.686Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 35,
+        "fields": {
+            "drone": 5,
+            "battery_level": 35.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.833Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 36,
+        "fields": {
+            "drone": 6,
+            "battery_level": 100.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:00.932Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 37,
+        "fields": {
+            "drone": 7,
+            "battery_level": 22.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:01.030Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 38,
+        "fields": {
+            "drone": 8,
+            "battery_level": 100.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:01.129Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 39,
+        "fields": {
+            "drone": 9,
+            "battery_level": 87.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:01.239Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 40,
+        "fields": {
+            "drone": 10,
+            "battery_level": 76.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:40:01.436Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 41,
+        "fields": {
+            "drone": 1,
+            "battery_level": 80.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.058Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 42,
+        "fields": {
+            "drone": 2,
+            "battery_level": 80.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.198Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 43,
+        "fields": {
+            "drone": 3,
+            "battery_level": 75.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.318Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 44,
+        "fields": {
+            "drone": 4,
+            "battery_level": 65.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.428Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 45,
+        "fields": {
+            "drone": 5,
+            "battery_level": 35.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.538Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 46,
+        "fields": {
+            "drone": 6,
+            "battery_level": 100.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.665Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 47,
+        "fields": {
+            "drone": 7,
+            "battery_level": 22.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.766Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 48,
+        "fields": {
+            "drone": 8,
+            "battery_level": 100.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.865Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 49,
+        "fields": {
+            "drone": 9,
+            "battery_level": 87.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:00.963Z",
+            "expiry_duration_minutes": 5
+        }
+    },
+    {
+        "model": "dispatch.dronebatteryaudit",
+        "pk": 50,
+        "fields": {
+            "drone": 10,
+            "battery_level": 76.0,
+            "task_name": "dispatch.tasks.perform_check_drone_battery",
+            "timestamp": "2024-07-02T05:45:01.062Z",
+            "expiry_duration_minutes": 5
+        }
+    }
+]

@@ -1,7 +1,3 @@
-Certainly! Here's the updated section in the README with all the specified URL endpoints:
-
----
-
 # Drone Management Service via REST API
 
 This Django project implements a REST API service for managing a fleet of drones and their interactions with medications. The service allows clients to communicate with drones through various endpoints provided by the dispatch controller.
@@ -42,6 +38,7 @@ The API provides functionalities to register drones, load medications onto drone
 Ensure you have the following installed on your system:
 - Docker
 - Docker Compose
+- Python (for local development and management)
 
 ### Installation
 
@@ -49,6 +46,11 @@ Ensure you have the following installed on your system:
    ```bash
    git clone https://github.com/WayneMusungu/Drone-Dispatch.git
    cd Drone-Dispatch
+   ```
+
+2. Stopping Existing Redis Service (if running):
+   ```bash
+   sudo service redis-server stop
    ```
 
 ### Running the Server
@@ -70,25 +72,25 @@ The server should now be running locally at `http://127.0.0.1:8000/`.
 The following endpoints are available:
 
 - **Register a Drone**:
-  - `POST /drone/register/`
+  - `POST http://127.0.0.1:8000/drone/register/`
   
     Payload Example:
     ```json
     {
       "serial_number": "DRN001",
-      "model": "Lightweight",
+      "model": "LIGHTWEIGHT",  // Choices: LIGHTWEIGHT, MIDDLEWEIGHT, CRUISERWEIGHT, HEAVYWEIGHT
       "weight_limit": 500,
-      "battery_capacity": 100,
+      "battery_capacity": 100
     }
     ```
 
 - **Load Medications onto a Drone**:
-  - `POST /drone/<int:id>/load/`
+  - `POST http://127.0.0.1:8000/drone/<int:id>/load/`
   
     To load medications onto a drone, use Postman with the following steps:
     
     1. Set the request type to `POST`.
-    2. Set the URL to `http://localhost:8000/drone/<drone_id>/load/`.
+    2. Set the URL to `http://127.0.0.1:8000/drone/<drone_id>/load/`.
     3. Go to the `Body` tab, select `form-data`.
     4. Add the following fields:
        - `name`: Name of the medication.
@@ -103,16 +105,22 @@ The following endpoints are available:
        - `image`: Select a file to upload (medication image).
 
 - **Check Loaded Medications for a Drone**:
-  - `GET /drone/<int:id>/medications/`
+  - `GET http://127.0.0.1:8000/drone/<int:id>/medications/`
+  
+    Example:
+    - `GET http://127.0.0.1:8000/drone/1/medications/` (where `1` is the ID of the drone)
 
 - **Check Available Drones for Loading**:
-  - `GET /drone/available-drones/`
+  - `GET http://127.0.0.1:8000/drone/available-drones/`
 
 - **Check Drone Battery Level**:
-  - `GET /drone/<int:id>/battery/`
+  - `GET http://127.0.0.1:8000/drone/<int:id>/battery/`
+  
+    Example:
+    - `GET http://127.0.0.1:8000/drone/1/battery/` (where `1` is the ID of the drone)
 
 - **Drone Battery Audit Log**:
-  - `GET /drone-audit/`
+  - `GET http://127.0.0.1:8000/drone-audit/`
 
 ## Testing
 
@@ -134,4 +142,3 @@ Run unit tests to verify functionality within the Docker container:
   ```bash
   docker-compose logs celery_worker
   ```
-

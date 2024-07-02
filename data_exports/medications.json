@@ -1,1 +1,46 @@
-[{"model": "dispatch.medication", "pk": 1, "fields": {"name": "Panadol Extra", "weight": 300.0, "code": "UYT890", "image": "photos/panadol.jpeg", "drone": 4}}, {"model": "dispatch.medication", "pk": 2, "fields": {"name": "cetrizine", "weight": 200.0, "code": "TGF097", "image": "photos/citrizin.jpeg", "drone": 2}}, {"model": "dispatch.medication", "pk": 3, "fields": {"name": "Strepsils", "weight": 300.0, "code": "GOT543", "image": "photos/strepsil.jpeg", "drone": 2}}]
+[
+    {
+        "model": "dispatch.medication",
+        "pk": 1,
+        "fields": {
+            "name": "Panadol Extra",
+            "weight": 300.0,
+            "code": "UYT890",
+            "image": "photos/panadol.jpeg",
+            "drone": 4
+        }
+    },
+    {
+        "model": "dispatch.medication",
+        "pk": 2,
+        "fields": {
+            "name": "cetrizine",
+            "weight": 200.0,
+            "code": "TGF097",
+            "image": "photos/citrizin.jpeg",
+            "drone": 2
+        }
+    },
+    {
+        "model": "dispatch.medication",
+        "pk": 3,
+        "fields": {
+            "name": "Strepsils",
+            "weight": 300.0,
+            "code": "GOT543",
+            "image": "photos/strepsil.jpeg",
+            "drone": 2
+        }
+    },
+    {
+        "model": "dispatch.medication",
+        "pk": 4,
+        "fields": {
+            "name": "Omega 3",
+            "weight": 500.0,
+            "code": "RPG758",
+            "image": "photos/omega.jpeg",
+            "drone": 5
+        }
+    }
+]
