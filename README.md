@@ -97,7 +97,7 @@ The following endpoints are available:
     To load medications onto a drone, use Postman with the following steps:
     
     1. Set the request type to `POST`.
-    2. Set the URL to `http://127.0.0.1:8000/drone/<drone_id>/load/`. (where `1` is the ID of the drone)
+    2. Set the URL to `http://127.0.0.1:8000/drone/1/load/`. (where `1` is the ID of the drone)
     3. Go to the `Body` tab, select `form-data`.
     4. Add the following fields:
        - `name`: Name of the medication.
