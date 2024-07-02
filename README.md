@@ -10,6 +10,7 @@ This Django project implements a REST API service for managing a fleet of drones
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the Server](#running-the-server)
+  - [Database](#database)
 - [Endpoints](#endpoints)
 - [Testing](#testing)
 - [Docker Instructions](#docker-instructions)
@@ -66,6 +67,12 @@ This command will:
 - Start the Django development server
 
 The server should now be running locally at `http://127.0.0.1:8000/`.
+
+### Database
+
+The project uses different databases for different environments:
+- **Local development**: SQLite3 (default Django configuration)
+- **Docker setup**: PostgreSQL
 
 ## Endpoints
 
