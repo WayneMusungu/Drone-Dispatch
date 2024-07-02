@@ -11,6 +11,7 @@ This Django project implements a REST API service for managing a fleet of drones
   - [Installation](#installation)
   - [Running the Server](#running-the-server)
   - [Database](#database)
+- [Preloaded Data](#preloaded-data)
 - [Endpoints](#endpoints)
 - [Testing](#testing)
 - [Docker Instructions](#docker-instructions)
@@ -73,6 +74,10 @@ The server should now be running locally at `http://127.0.0.1:8000/`.
 The project uses different databases for different environments:
 - **Local development**: SQLite3 (default Django configuration)
 - **Docker setup**: PostgreSQL
+
+## Preloaded Data
+
+This application comes with preloaded data. You can explore the JSON files containing this data in the `data_exports` directory.
 
 ## Endpoints
 
