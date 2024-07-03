@@ -77,9 +77,9 @@ The project uses different databases for different environments:
 
 ### Environment Variables
 Create a .env file at the project root directory and add the following:
-    ```
-    SECRET_KEY=your_secret_key_here
-    ```
+    ```bash
+   SECRET_KEY=your_secret_key_here
+   ```
 
 ## Preloaded Data
 
