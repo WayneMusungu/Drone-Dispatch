@@ -9,14 +9,13 @@ This Django project implements a REST API service for managing a fleet of drones
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
   - [Running the Server](#running-the-server)
   - [Database](#database)
-  - [Environment Variables](#environment-variables)
 - [Preloaded Data](#preloaded-data)
 - [Endpoints](#endpoints)
 - [Testing](#testing)
 - [Docker Instructions](#docker-instructions)
-
 
 ## Introduction
 
@@ -55,6 +54,14 @@ Ensure you have the following installed on your system:
    sudo service redis-server stop
    ```
 
+### Environment Variables
+
+Create a `.env` file at the project root directory and add the following:
+
+   ```plaintext
+   SECRET_KEY=your_secret_key_here
+   ```
+
 ### Running the Server
 
 Start the Django development server using Docker:
@@ -74,14 +81,6 @@ The server should now be running locally at `http://127.0.0.1:8000/`.
 The project uses different databases for different environments:
 - **Local development**: SQLite3 (default Django configuration)
 - **Docker setup**: PostgreSQL
-
-### Environment Variables
-
-Create a `.env` file at the project root directory and add the following:
-
-   ```plaintext
-   SECRET_KEY=your_secret_key_here
-   ````
 
 ## Preloaded Data
 
