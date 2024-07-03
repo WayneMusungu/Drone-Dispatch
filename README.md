@@ -16,8 +16,7 @@ This Django project implements a REST API service for managing a fleet of drones
 - [Endpoints](#endpoints)
 - [Testing](#testing)
 - [Docker Instructions](#docker-instructions)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
