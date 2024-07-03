@@ -1,3 +1,6 @@
+Here's the updated README file with the instructions for adding the `SECRET_KEY` to the `.env` file before running the server:
+
+```markdown
 # Drone Management Service via REST API
 
 This Django project implements a REST API service for managing a fleet of drones and their interactions with medications. The service allows clients to communicate with drones through various endpoints provided by the dispatch controller.
@@ -9,14 +12,13 @@ This Django project implements a REST API service for managing a fleet of drones
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
   - [Running the Server](#running-the-server)
   - [Database](#database)
-  - [Environment Variables](#environment-variables)
 - [Preloaded Data](#preloaded-data)
 - [Endpoints](#endpoints)
 - [Testing](#testing)
 - [Docker Instructions](#docker-instructions)
-
 
 ## Introduction
 
@@ -55,6 +57,14 @@ Ensure you have the following installed on your system:
    sudo service redis-server stop
    ```
 
+### Environment Variables
+
+Create a `.env` file at the project root directory and add the following:
+
+   ```plaintext
+   SECRET_KEY=your_secret_key_here
+   ```
+
 ### Running the Server
 
 Start the Django development server using Docker:
@@ -74,14 +84,6 @@ The server should now be running locally at `http://127.0.0.1:8000/`.
 The project uses different databases for different environments:
 - **Local development**: SQLite3 (default Django configuration)
 - **Docker setup**: PostgreSQL
-
-### Environment Variables
-
-Create a `.env` file at the project root directory and add the following:
-
-   ```plaintext
-   SECRET_KEY=your_secret_key_here
-   ````
 
 ## Preloaded Data
 
@@ -162,3 +164,14 @@ Run unit tests to verify functionality within the Docker container:
   ```bash
   docker-compose logs celery_worker
   ```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```
+
+This structure ensures that the creation of the `.env` file with the `SECRET_KEY` is clearly outlined before the instructions to run the server, making it easy for anyone setting up the project to follow.
