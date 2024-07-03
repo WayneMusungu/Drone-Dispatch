@@ -76,10 +76,12 @@ The project uses different databases for different environments:
 - **Docker setup**: PostgreSQL
 
 ### Environment Variables
-Create a .env file at the project root directory and add the following:
-    ```bash
+
+Create a `.env` file at the project root directory and add the following:
+
+   ```plaintext
    SECRET_KEY=your_secret_key_here
-   ```
+   ````
 
 ## Preloaded Data
 
