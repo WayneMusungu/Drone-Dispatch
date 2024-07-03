@@ -11,6 +11,7 @@ This Django project implements a REST API service for managing a fleet of drones
   - [Installation](#installation)
   - [Running the Server](#running-the-server)
   - [Database](#database)
+  - [Environment Variables](#environment-variables)
 - [Preloaded Data](#preloaded-data)
 - [Endpoints](#endpoints)
 - [Testing](#testing)
@@ -74,6 +75,12 @@ The server should now be running locally at `http://127.0.0.1:8000/`.
 The project uses different databases for different environments:
 - **Local development**: SQLite3 (default Django configuration)
 - **Docker setup**: PostgreSQL
+
+### Environment Variables
+Create a .env file at the project root directory and add the following:
+    ```
+    SECRET_KEY=your_secret_key_here
+    ```
 
 ## Preloaded Data
 
