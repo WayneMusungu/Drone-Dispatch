@@ -1,3 +1,6 @@
+Here's the updated README file with the instructions for adding the `SECRET_KEY` to the `.env` file before running the server:
+
+```markdown
 # Drone Management Service via REST API
 
 This Django project implements a REST API service for managing a fleet of drones and their interactions with medications. The service allows clients to communicate with drones through various endpoints provided by the dispatch controller.
@@ -161,3 +164,14 @@ Run unit tests to verify functionality within the Docker container:
   ```bash
   docker-compose logs celery_worker
   ```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```
+
+This structure ensures that the creation of the `.env` file with the `SECRET_KEY` is clearly outlined before the instructions to run the server, making it easy for anyone setting up the project to follow.
